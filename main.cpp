@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -28,14 +29,14 @@ int main()
         cout << "\nPlease input here: ";
         cin >> userChoice;
 
-//        switch (userChoice){
-//            case 1:
-//
-//            case 2:
-//
-//            default:
-//
-//        }
+        switch (userChoice){
+            case 1:
+
+            case 2:
+
+            default:
+
+        }
     }
     return 0;
 }
