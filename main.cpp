@@ -26,7 +26,7 @@ public:
         this->name = name;
         this->balance = balance;
 
-        ofstream outFile("accounts.txt");
+        ofstream outFile("accounts.txt", ios::app);
         if (outFile.is_open()) {
             outFile << username << ":" << name << ":" << balance << std::endl;
             outFile.close();
