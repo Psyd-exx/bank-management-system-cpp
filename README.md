@@ -1,2 +1,2 @@
-# bank-management-system-cpp
+# Bank Management System
 A management system for banks.
