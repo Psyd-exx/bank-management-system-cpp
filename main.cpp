@@ -4,6 +4,23 @@
 using namespace std;
 
 class BankAccount {
+public:
+    bool checkAccount(string username) {
+        ifstream inFile("accounts.txt");
+        if (inFile.is_open()) {
+            string line;
+            while (getline(inFile, line)) {
+                if (username == line) {
+                    return true;
+                }
+            }
+        } else {
+            cout << "File Not Found!";
+        }
+        return false;
+    }
+
+private:
 
 };
 
