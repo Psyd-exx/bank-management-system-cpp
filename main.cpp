@@ -1,67 +1,7 @@
 #include <iostream>
-#include <fstream>
+#include "BankAccount.h"
 
 using namespace std;
-
-class BankAccount {
-public:
-    bool checkAccountExists(string username) {
-        ifstream inFile("accounts.txt");
-        if (inFile.is_open()) {
-            string line;
-            while (getline(inFile, line)) {
-                if (line.contains(username)) {
-                    return true;
-                }
-            }
-            inFile.close();
-        } else {
-            cout << "File Not Found!\n";
-        }
-        return false;
-    }
-
-    void createAccount(string username, string password, string name, float balance) {
-        this->username = username;
-        this->password = password;
-        this->name = name;
-        this->balance = balance;
-
-        ofstream outFile("accounts.txt", ios::app);
-        if (outFile.is_open()) {
-            outFile << username << ":" << password << ":" << balance << ":" << name << std::endl;
-            outFile.close();
-        } else {
-            cout << "File Not Found!\n";
-        }
-    }
-
-    bool logIn(string username, string password) {
-        ifstream inFile("accounts.txt");
-        if (inFile.is_open()) {
-            string line;
-            while (getline(inFile, line)) {
-                size_t firstColonPos = line.find(":");
-                size_t secondColonPos = line.find(":", firstColonPos + 1);
-                string fileUsername = line.substr(0, firstColonPos);
-                string filePassword = line.substr(firstColonPos + 1, secondColonPos - firstColonPos - 1);
-
-                if (fileUsername == username && filePassword == password) {
-                    return true;
-                }
-            }
-            inFile.close();
-        }
-        return false;
-    }
-
-private:
-    string username {};
-    string password {};
-    string name {};
-    float balance {0.00};
-    // bool loggedIn {false};
-};
 
 class Bank {
 
