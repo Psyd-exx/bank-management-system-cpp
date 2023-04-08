@@ -21,36 +21,46 @@ public:
         return false;
     }
 
-    void createAccount(string username, string name, float balance) {
+    void createAccount(string username, string password, string name, float balance) {
         this->username = username;
+        this->password = password;
         this->name = name;
         this->balance = balance;
 
         ofstream outFile("accounts.txt", ios::app);
         if (outFile.is_open()) {
-            outFile << username << ":" << name << ":" << balance << std::endl;
+            outFile << username << ":" << password << ":" << balance << ":" << name << std::endl;
             outFile.close();
         } else {
             cout << "File Not Found!\n";
         }
     }
 
-    void setUsername(string username) {
-        this->username = username;
-    }
+    bool logIn(string username, string password) {
+        ifstream inFile("accounts.txt");
+        if (inFile.is_open()) {
+            string line;
+            while (getline(inFile, line)) {
+                size_t firstColonPos = line.find(":");
+                size_t secondColonPos = line.find(":", firstColonPos + 1);
+                string fileUsername = line.substr(0, firstColonPos);
+                string filePassword = line.substr(firstColonPos + 1, secondColonPos - firstColonPos - 1);
 
-    void setName(string name) {
-        this->name = name;
-    }
-
-    void setBalance(float balance) {
-        this->balance = balance;
+                if (fileUsername == username && filePassword == password) {
+                    return true;
+                }
+            }
+            inFile.close();
+        }
+        return false;
     }
 
 private:
     string username {};
+    string password {};
     string name {};
     float balance {0.00};
+    // bool loggedIn {false};
 };
 
 class Bank {
@@ -65,6 +75,7 @@ int main()
 {
     int userChoice {0};
     string username {""};
+    string password {""};
     string name {""};
     float balance {0.00};
     BankAccount userAccount;
@@ -89,17 +100,33 @@ int main()
                             "Please try again with a different username.\n";
                     break;
                 }
+                cout << "PLEASE INPUT YOUR PASSWORD HERE: ";
+                cin >> password;
+                cin.ignore();
                 cout << "PLEASE INPUT YOUR NAME HERE: ";
                 getline(cin, name);
                 cout << "PLEASE INPUT THE INITIAL AMOUNT TO DEPOSIT HERE: ";
                 cin >> balance;
 
-                userAccount.createAccount(username, name, balance);
+                userAccount.createAccount(username, password, name, balance);
 
                 cout << "\nAccount created successfully!\n";
                 break;
 
             case 2:
+                cout << "PLEASE INPUT YOUR USERNAME HERE: ";
+                cin >> username;
+                cout << "PLEASE INPUT YOUR PASSWORD HERE: ";
+                cin >> password;
+                if (!userAccount.logIn(username, password)) {
+                    cout << "\nLog In Failed!\n";
+                    break;
+                }
+                cout << "\nSuccessfully Logged In!\n";
+
+
+
+
                 break;
 
             case 3:
