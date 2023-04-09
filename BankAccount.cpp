@@ -103,11 +103,6 @@ void BankAccount :: withdrawFunds(float withdrawnMoney) {
         getline(ss, fileName);
         fileName = fileName.substr(1);
 
-        cout << "File Username: " << fileUsername << ". Username: " << username << "\n";
-        cout << "File Password: " << filePassword << ". Password: " << password << "\n";
-        cout << "File Name: " << fileName << ". Name: " << name << "\n";
-        cout << "File Balance: " << fileBalance << ". Balance: " << balance << "\n";
-
         if (fileUsername == username) {
             this->balance -= withdrawnMoney;
             tempFile << username << ":" << password << ":" << balance << ":" << name << endl;
