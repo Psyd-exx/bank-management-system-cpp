@@ -77,7 +77,39 @@ void BankAccount :: addFunds(float depositedMoney) {
 
         if (fileUsername == username) {
             this->balance += depositedMoney;
-            cout << "BALANCEEEE:" << balance << "\n";
+            tempFile << username << ":" << password << ":" << balance << ":" << name << endl;
+        } else {
+            tempFile << fileUsername << ":" << filePassword << ":" << fileBalance << ":" << fileName << "\n";
+        }
+    }
+    file.close();
+    tempFile.close();
+
+    remove("accounts.txt");
+    rename("temp.txt", "accounts.txt");
+}
+
+void BankAccount :: withdrawFunds(float withdrawnMoney) {
+    fstream file("accounts.txt");
+    ofstream tempFile("temp.txt");
+
+    string fileUsername, filePassword, fileName, line;
+    double fileBalance, amount;
+    while (getline(file, line)) {
+        stringstream ss(line);
+        getline(ss, fileUsername, ':');
+        getline(ss, filePassword, ':');
+        ss >> fileBalance;
+        getline(ss, fileName);
+        fileName = fileName.substr(1);
+
+        cout << "File Username: " << fileUsername << ". Username: " << username << "\n";
+        cout << "File Password: " << filePassword << ". Password: " << password << "\n";
+        cout << "File Name: " << fileName << ". Name: " << name << "\n";
+        cout << "File Balance: " << fileBalance << ". Balance: " << balance << "\n";
+
+        if (fileUsername == username) {
+            this->balance -= withdrawnMoney;
             tempFile << username << ":" << password << ":" << balance << ":" << name << endl;
         } else {
             tempFile << fileUsername << ":" << filePassword << ":" << fileBalance << ":" << fileName << "\n";

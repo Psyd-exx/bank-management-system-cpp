@@ -16,5 +16,5 @@ public:
 
     void addFunds(float depositedMoney);
 
-private:
+    void withdrawFunds(float withdrawnMoney);
 };

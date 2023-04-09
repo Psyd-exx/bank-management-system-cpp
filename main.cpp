@@ -75,11 +75,18 @@ int main()
                     switch (loggedInUserChoice) {
                         case 1:
                             float moneyToDeposit;
-
                             cout << "HOW MUCH WOULD YOU LIKE TO DEPOSIT?: ";
                             cin >> moneyToDeposit;
                             userAccount.addFunds(moneyToDeposit);
-                            cout << userAccount.balance;
+                            moneyToDeposit = 0;
+
+                        case 3:
+                            float moneyToWithdraw;
+                            cout << "HOW MUCH WOULD YOU LIKE TO WITHDRAW?: ";
+                            cin >> moneyToWithdraw;
+                            userAccount.withdrawFunds(moneyToWithdraw);
+                            moneyToWithdraw = 0;
+
                         case 4:
                             break;
                     }
