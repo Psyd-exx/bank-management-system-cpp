@@ -1,6 +1,7 @@
 #include "BankAccount.h"
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 bool BankAccount ::checkAccountExists(std::string username)
 {
@@ -19,7 +20,7 @@ bool BankAccount ::checkAccountExists(std::string username)
     return false;
 }
 
-void BankAccount ::createAccount(std::string username, std::string password, std::string name, float balance) {
+void BankAccount ::createAccount(string username, string password, string name, float balance) {
     this->username = username;
     this->password = password;
     this->name = name;
@@ -39,16 +40,57 @@ bool BankAccount :: logIn(string username, string password) {
     if (inFile.is_open()) {
         string line;
         while (getline(inFile, line)) {
-            size_t firstColonPos = line.find(":");
-            size_t secondColonPos = line.find(":", firstColonPos + 1);
-            string fileUsername = line.substr(0, firstColonPos);
-            string filePassword = line.substr(firstColonPos + 1, secondColonPos - firstColonPos - 1);
+            stringstream ss(line);
+            string fileUsername, filePassword, balanceStr, fileName;
+
+            getline(ss, fileUsername, ':');
+            getline(ss, filePassword, ':');
+            getline(ss, balanceStr, ':');
+            getline(ss, fileName, ':');
 
             if (fileUsername == username && filePassword == password) {
+                this->username = fileUsername;
+                this->password = filePassword;
+                this->name = fileName;
+                this->balance = stod(balanceStr);
                 return true;
             }
         }
         inFile.close();
     }
     return false;
+}
+
+void BankAccount :: addFunds(float depositedMoney) {
+    fstream file("accounts.txt");
+    ofstream tempFile("temp.txt");
+
+    string fileUsername, filePassword, fileName, line;
+    double fileBalance, amount;
+    while (getline(file, line)) {
+        stringstream ss(line);
+        getline(ss, fileUsername, ':');
+        getline(ss, filePassword, ':');
+        ss >> fileBalance;
+        getline(ss, fileName);
+        fileName = fileName.substr(1);
+
+        cout << "File Username: " << fileUsername << ". Username: " << username << "\n";
+        cout << "File Password: " << filePassword << ". Password: " << password << "\n";
+        cout << "File Name: " << fileName << ". Name: " << name << "\n";
+        cout << "File Balance: " << fileBalance << ". Balance: " << balance << "\n";
+
+        if (fileUsername == username) {
+            this->balance += depositedMoney;
+            cout << "BALANCEEEE:" << balance << "\n";
+            tempFile << username << ":" << password << ":" << balance << ":" << name << endl;
+        } else {
+            tempFile << fileUsername << ":" << filePassword << ":" << fileBalance << ":" << fileName << "\n";
+        }
+    }
+    file.close();
+    tempFile.close();
+
+    remove("accounts.txt");
+    rename("temp.txt", "accounts.txt");
 }

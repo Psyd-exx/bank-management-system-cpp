@@ -3,10 +3,6 @@
 
 using namespace std;
 
-class Bank {
-
-};
-
 class Transaction {
 
 };
@@ -14,6 +10,7 @@ class Transaction {
 int main()
 {
     int userChoice {0};
+    int loggedInUserChoice {0};
     string username {""};
     string password {""};
     string name {""};
@@ -62,11 +59,31 @@ int main()
                     cout << "\nLog In Failed!\n";
                     break;
                 }
-                cout << "\nSuccessfully Logged In!\n";
 
+                while (loggedInUserChoice != 4) {
+                    cout << "\n##### WELCOME " << userAccount.username << "! #####\n";
+                    cout << "ACCOUNT NAME: " << userAccount.name << "\n";
+                    cout << "ACCOUNT BALANCE: " << userAccount.balance << "\n";
+                    cout << "=-=-=-=-=-=-=-=-=-=-=-=\n";
+                    cout << "[1] ADD FUNDS\n";
+                    cout << "[2] TRANSFER MONEY\n";
+                    cout << "[3] WITHDRAW MONEY\n";
+                    cout << "[4] LOG OUT\n";
+                    cout << "\nPlease input here: ";
+                    cin >> loggedInUserChoice;
 
+                    switch (loggedInUserChoice) {
+                        case 1:
+                            float moneyToDeposit;
 
-
+                            cout << "HOW MUCH WOULD YOU LIKE TO DEPOSIT?: ";
+                            cin >> moneyToDeposit;
+                            userAccount.addFunds(moneyToDeposit);
+                            cout << userAccount.balance;
+                        case 4:
+                            break;
+                    }
+                }
                 break;
 
             case 3:
