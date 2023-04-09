@@ -17,4 +17,7 @@ public:
     void addFunds(float depositedMoney);
 
     void withdrawFunds(float withdrawnMoney);
+
+    void transferMoney(string userToTransferTo, float moneyToTransfer);
+
 };

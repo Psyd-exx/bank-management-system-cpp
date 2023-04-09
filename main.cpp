@@ -4,7 +4,6 @@
 using namespace std;
 
 class Transaction {
-
 };
 
 int main()
@@ -71,21 +70,33 @@ int main()
                     cout << "[4] LOG OUT\n";
                     cout << "\nPlease input here: ";
                     cin >> loggedInUserChoice;
+                    string userToTransfer;
 
                     switch (loggedInUserChoice) {
                         case 1:
                             float moneyToDeposit;
-                            cout << "HOW MUCH WOULD YOU LIKE TO DEPOSIT?: ";
+                            cout << "HOW MUCH WOULD YOU LIKE TO DEPOSIT?: \n";
                             cin >> moneyToDeposit;
                             userAccount.addFunds(moneyToDeposit);
                             moneyToDeposit = 0;
+                            break;
+
+                        case 2:
+                            float moneyToTransfer;
+                            cout << "INPUT THEIR USERNAME: ";
+                            cin >> userToTransfer;
+                            cout << "HOW MUCH WOULD YOU LIKE TO TRANSFER?: ";
+                            cin >> moneyToTransfer;
+                            userAccount.transferMoney(userToTransfer, moneyToTransfer);
+                            break;
 
                         case 3:
                             float moneyToWithdraw;
-                            cout << "HOW MUCH WOULD YOU LIKE TO WITHDRAW?: ";
+                            cout << "HOW MUCH WOULD YOU LIKE TO WITHDRAW?: \n";
                             cin >> moneyToWithdraw;
                             userAccount.withdrawFunds(moneyToWithdraw);
                             moneyToWithdraw = 0;
+                            break;
 
                         case 4:
                             break;

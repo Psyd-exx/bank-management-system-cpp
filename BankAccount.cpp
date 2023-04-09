@@ -116,3 +116,40 @@ void BankAccount :: withdrawFunds(float withdrawnMoney) {
     remove("accounts.txt");
     rename("temp.txt", "accounts.txt");
 }
+
+void BankAccount :: transferMoney(string userToTransferTo, float moneyToTransfer) {
+    fstream file("accounts.txt");
+    ofstream tempFile("temp.txt");
+
+    if (this->balance <= moneyToTransfer) {
+        cout << "NOT ENOUGH MONEY TO TRANSFER\n";
+        return;
+    }
+
+    this->balance -= moneyToTransfer;
+
+    string fileUsername, filePassword, fileName, line;
+    double fileBalance, amount;
+    while (getline(file, line)) {
+        stringstream ss(line);
+        getline(ss, fileUsername, ':');
+        getline(ss, filePassword, ':');
+        ss >> fileBalance;
+        getline(ss, fileName);
+        fileName = fileName.substr(1);
+
+        if (fileUsername == userToTransferTo) {
+            fileBalance += moneyToTransfer;
+            tempFile << fileUsername << ":" << filePassword << ":" << fileBalance << ":" << fileName << "\n";
+        } else if (fileUsername == this->username) {
+            tempFile << username << ":" << password << ":" << balance << ":" << name << endl;
+        } else {
+            tempFile << fileUsername << ":" << filePassword << ":" << fileBalance << ":" << fileName << "\n";
+        }
+    }
+    file.close();
+    tempFile.close();
+
+    remove("accounts.txt");
+    rename("temp.txt", "accounts.txt");
+}
