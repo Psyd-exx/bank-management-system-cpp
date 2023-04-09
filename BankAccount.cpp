@@ -75,11 +75,6 @@ void BankAccount :: addFunds(float depositedMoney) {
         getline(ss, fileName);
         fileName = fileName.substr(1);
 
-        cout << "File Username: " << fileUsername << ". Username: " << username << "\n";
-        cout << "File Password: " << filePassword << ". Password: " << password << "\n";
-        cout << "File Name: " << fileName << ". Name: " << name << "\n";
-        cout << "File Balance: " << fileBalance << ". Balance: " << balance << "\n";
-
         if (fileUsername == username) {
             this->balance += depositedMoney;
             cout << "BALANCEEEE:" << balance << "\n";
