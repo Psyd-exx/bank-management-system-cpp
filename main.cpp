@@ -4,6 +4,53 @@
 using namespace std;
 
 class Transaction {
+public:
+    string user;
+    string description;
+    double amount;
+    Transaction* next;
+
+    Transaction(string user, string description, double amount) {
+        this->user = user;
+        this->description = description;
+        this->amount = amount;
+        next = NULL;
+    }
+};
+
+class TransactionList {
+private:
+    Transaction* head;
+public:
+    TransactionList() {
+        head = NULL;
+    }
+
+    void addTransaction(string user, string desc, double amt) {
+        Transaction* newTransaction = new Transaction(user, desc, amt);
+        if (head == NULL) {
+            head = newTransaction;
+        }
+        else {
+            Transaction* current = head;
+            while (current->next != NULL) {
+                current = current->next;
+            }
+            current->next = newTransaction;
+        }
+    }
+
+    void displayTransactions() {
+        Transaction* current = head;
+        while (current != NULL) {
+            cout << "\n================================\n";
+            cout << "Sent to: " << current->user << endl;
+            cout << "Description: " << current->description << endl;
+            cout << "Amount: " << current->amount << endl;
+            cout << "================================\n";
+            current = current->next;
+        }
+    }
 };
 
 int main()
@@ -15,6 +62,7 @@ int main()
     string name {""};
     float balance {0.00};
     BankAccount userAccount;
+    TransactionList transactionList;
 
     cout << "Welcome to Sinan's Bank Management System\n"
             "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-";
@@ -59,23 +107,30 @@ int main()
                     break;
                 }
 
-                while (loggedInUserChoice != 4) {
-                    cout << "\n##### WELCOME " << userAccount.username << "! #####\n";
+                cout << "\n>> WELCOME " << userAccount.username << "!\n";
+                while (loggedInUserChoice != 6) {
+                    cout << "\n####### LOGGED IN AS: " << userAccount.username << " #######\n";
                     cout << "ACCOUNT NAME: " << userAccount.name << "\n";
                     cout << "ACCOUNT BALANCE: " << userAccount.balance << "\n";
-                    cout << "=-=-=-=-=-=-=-=-=-=-=-=\n";
+                    cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n";
                     cout << "[1] ADD FUNDS\n";
                     cout << "[2] TRANSFER MONEY\n";
-                    cout << "[3] WITHDRAW MONEY\n";
-                    cout << "[4] LOG OUT\n";
-                    cout << "\nPlease input here: ";
+                    cout << "[3] VIEW VOLATILE TRANSACTIONS\n";
+                    cout << "[4] CHANGE NAME\n";
+                    cout << "[5] WITHDRAW MONEY\n";
+                    cout << "[6] LOG OUT\n";
+                    cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n";
+                    cout << "Please input here: ";
+
                     cin >> loggedInUserChoice;
                     string userToTransfer;
+                    string description;
+                    string newName;
 
                     switch (loggedInUserChoice) {
                         case 1:
                             float moneyToDeposit;
-                            cout << "HOW MUCH WOULD YOU LIKE TO DEPOSIT?: \n";
+                            cout << "HOW MUCH WOULD YOU LIKE TO DEPOSIT?: ";
                             cin >> moneyToDeposit;
                             userAccount.addFunds(moneyToDeposit);
                             moneyToDeposit = 0;
@@ -87,18 +142,33 @@ int main()
                             cin >> userToTransfer;
                             cout << "HOW MUCH WOULD YOU LIKE TO TRANSFER?: ";
                             cin >> moneyToTransfer;
+                            cout << "REASON FOR TRANSFER: ";
+                            cin >> description;
+
+                            transactionList.addTransaction(userToTransfer, description, moneyToTransfer);
                             userAccount.transferMoney(userToTransfer, moneyToTransfer);
                             break;
 
                         case 3:
+                            transactionList.displayTransactions();
+                            break;
+
+                        case 4:
+                            cin.ignore();
+                            cout << "INPUT NAME HERE: ";
+                            getline(cin, name);
+                            userAccount.changeName(name);
+                            break;
+
+                        case 5:
                             float moneyToWithdraw;
-                            cout << "HOW MUCH WOULD YOU LIKE TO WITHDRAW?: \n";
+                            cout << "HOW MUCH WOULD YOU LIKE TO WITHDRAW?: ";
                             cin >> moneyToWithdraw;
                             userAccount.withdrawFunds(moneyToWithdraw);
                             moneyToWithdraw = 0;
                             break;
 
-                        case 4:
+                        case 6:
                             break;
                     }
                 }

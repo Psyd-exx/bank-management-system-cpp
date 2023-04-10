@@ -20,4 +20,6 @@ public:
 
     void transferMoney(string userToTransferTo, float moneyToTransfer);
 
+    void changeName(string newName);
+
 };

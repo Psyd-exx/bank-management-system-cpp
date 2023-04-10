@@ -122,7 +122,7 @@ void BankAccount :: transferMoney(string userToTransferTo, float moneyToTransfer
     ofstream tempFile("temp.txt");
 
     if (this->balance <= moneyToTransfer) {
-        cout << "NOT ENOUGH MONEY TO TRANSFER\n";
+        cout << "\n>> NOT ENOUGH MONEY TO TRANSFER!\n";
         return;
     }
 
@@ -152,4 +152,8 @@ void BankAccount :: transferMoney(string userToTransferTo, float moneyToTransfer
 
     remove("accounts.txt");
     rename("temp.txt", "accounts.txt");
+}
+
+void BankAccount :: changeName(string newName) {
+    this->name = newName;
 }
