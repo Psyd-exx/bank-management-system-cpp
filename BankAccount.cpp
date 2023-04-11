@@ -20,7 +20,7 @@ bool BankAccount ::checkAccountExists(std::string username)
     return false;
 }
 
-void BankAccount ::createAccount(string username, string password, string name, float balance) {
+void BankAccount ::createAccount(string username, string password, string name, long balance) {
     this->username = username;
     this->password = password;
     this->name = name;
@@ -61,12 +61,12 @@ bool BankAccount :: logIn(string username, string password) {
     return false;
 }
 
-void BankAccount :: addFunds(float depositedMoney) {
+void BankAccount :: addFunds(long depositedMoney) {
     fstream file("accounts.txt");
     ofstream tempFile("temp.txt");
 
     string fileUsername, filePassword, fileName, line;
-    double fileBalance, amount;
+    long fileBalance, amount;
     while (getline(file, line)) {
         stringstream ss(line);
         getline(ss, fileUsername, ':');
@@ -89,12 +89,12 @@ void BankAccount :: addFunds(float depositedMoney) {
     rename("temp.txt", "accounts.txt");
 }
 
-void BankAccount :: withdrawFunds(float withdrawnMoney) {
+void BankAccount :: withdrawFunds(long withdrawnMoney) {
     fstream file("accounts.txt");
     ofstream tempFile("temp.txt");
 
     string fileUsername, filePassword, fileName, line;
-    double fileBalance, amount;
+    long fileBalance, amount;
     while (getline(file, line)) {
         stringstream ss(line);
         getline(ss, fileUsername, ':');
@@ -117,7 +117,7 @@ void BankAccount :: withdrawFunds(float withdrawnMoney) {
     rename("temp.txt", "accounts.txt");
 }
 
-void BankAccount :: transferMoney(string userToTransferTo, float moneyToTransfer) {
+void BankAccount :: transferMoney(string userToTransferTo, long moneyToTransfer) {
     fstream file("accounts.txt");
     ofstream tempFile("temp.txt");
 
@@ -129,7 +129,7 @@ void BankAccount :: transferMoney(string userToTransferTo, float moneyToTransfer
     this->balance -= moneyToTransfer;
 
     string fileUsername, filePassword, fileName, line;
-    double fileBalance, amount;
+    long fileBalance, amount;
     while (getline(file, line)) {
         stringstream ss(line);
         getline(ss, fileUsername, ':');

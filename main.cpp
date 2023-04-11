@@ -7,10 +7,10 @@ class Transaction {
 public:
     string user;
     string description;
-    double amount;
+    long amount;
     Transaction* next;
 
-    Transaction(string user, string description, double amount) {
+    Transaction(string user, string description, long amount) {
         this->user = user;
         this->description = description;
         this->amount = amount;
@@ -26,7 +26,7 @@ public:
         head = NULL;
     }
 
-    void addTransaction(string user, string desc, double amt) {
+    void addTransaction(string user, string desc, long amt) {
         Transaction* newTransaction = new Transaction(user, desc, amt);
         if (head == NULL) {
             head = newTransaction;
@@ -60,7 +60,7 @@ int main()
     string username {""};
     string password {""};
     string name {""};
-    float balance {0.00};
+    long balance {0};
     BankAccount userAccount;
     TransactionList transactionList;
 
@@ -129,7 +129,7 @@ int main()
 
                     switch (loggedInUserChoice) {
                         case 1:
-                            float moneyToDeposit;
+                            long moneyToDeposit;
                             cout << "HOW MUCH WOULD YOU LIKE TO DEPOSIT?: ";
                             cin >> moneyToDeposit;
                             userAccount.addFunds(moneyToDeposit);
@@ -137,7 +137,7 @@ int main()
                             break;
 
                         case 2:
-                            float moneyToTransfer;
+                            long moneyToTransfer;
                             cout << "INPUT THEIR USERNAME: ";
                             cin >> userToTransfer;
                             cout << "HOW MUCH WOULD YOU LIKE TO TRANSFER?: ";
@@ -161,7 +161,7 @@ int main()
                             break;
 
                         case 5:
-                            float moneyToWithdraw;
+                            long moneyToWithdraw;
                             cout << "HOW MUCH WOULD YOU LIKE TO WITHDRAW?: ";
                             cin >> moneyToWithdraw;
                             userAccount.withdrawFunds(moneyToWithdraw);
