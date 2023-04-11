@@ -1,7 +1,8 @@
 #include <iostream>
 using namespace std;
 
-class BankAccount {
+class BankAccount
+{
 public:
     long balance {0};
     string name {};

@@ -20,7 +20,8 @@ bool BankAccount ::checkAccountExists(std::string username)
     return false;
 }
 
-void BankAccount ::createAccount(string username, string password, string name, long balance) {
+void BankAccount ::createAccount(string username, string password, string name, long balance)
+{
     this->username = username;
     this->password = password;
     this->name = name;
@@ -35,7 +36,8 @@ void BankAccount ::createAccount(string username, string password, string name, 
     }
 }
 
-bool BankAccount :: logIn(string username, string password) {
+bool BankAccount :: logIn(string username, string password)
+{
     ifstream inFile("accounts.txt");
     if (inFile.is_open()) {
         string line;
@@ -61,7 +63,8 @@ bool BankAccount :: logIn(string username, string password) {
     return false;
 }
 
-void BankAccount :: addFunds(long depositedMoney) {
+void BankAccount :: addFunds(long depositedMoney)
+{
     fstream file("accounts.txt");
     ofstream tempFile("temp.txt");
 
@@ -89,7 +92,8 @@ void BankAccount :: addFunds(long depositedMoney) {
     rename("temp.txt", "accounts.txt");
 }
 
-void BankAccount :: withdrawFunds(long withdrawnMoney) {
+void BankAccount :: withdrawFunds(long withdrawnMoney)
+{
     fstream file("accounts.txt");
     ofstream tempFile("temp.txt");
 
@@ -117,7 +121,8 @@ void BankAccount :: withdrawFunds(long withdrawnMoney) {
     rename("temp.txt", "accounts.txt");
 }
 
-void BankAccount :: transferMoney(string userToTransferTo, long moneyToTransfer) {
+void BankAccount :: transferMoney(string userToTransferTo, long moneyToTransfer)
+{
     fstream file("accounts.txt");
     ofstream tempFile("temp.txt");
 
@@ -154,6 +159,7 @@ void BankAccount :: transferMoney(string userToTransferTo, long moneyToTransfer)
     rename("temp.txt", "accounts.txt");
 }
 
-void BankAccount :: changeName(string newName) {
+void BankAccount :: changeName(string newName)
+{
     this->name = newName;
 }
