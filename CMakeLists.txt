@@ -5,8 +5,6 @@ project(
   VERSION 1.0
   LANGUAGES CXX)
 
-set(SRC ./BankAccount.h
-  ./BankAccount.cpp
-  ./main.cpp)
+set(SRC ./BankAccount.h ./BankAccount.cpp ./main.cpp)
 
 add_executable(bsms ${SRC})
